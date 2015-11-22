@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
   (1..MASTERS).each do |id|
     config.vm.define "master#{id}" do |machine|
       machine.vm.hostname = "master#{id}"
-      machine.vm.network "private_network", :ip => "192.168.10.#{id}"
+      machine.vm.network "private_network", :ip => "192.168.10.#{id+1}"
 
       machine.vm.provision "ansible" do |ansible|
           ansible.playbook = "provisioning/master.yml"
@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
   (1..NODES).each do |id|
     config.vm.define "node#{id}" do |machine|
       machine.vm.hostname = "node#{id}"
-      machine.vm.network "private_network", :ip => "192.168.11.#{id}"
+      machine.vm.network "private_network", :ip => "192.168.11.#{id+1}"
 
       machine.vm.provision "ansible" do |ansible|
           ansible.playbook = "provisioning/node.yml"

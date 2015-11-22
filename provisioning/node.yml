@@ -14,15 +14,15 @@
       - name: install mesosphere yum repo
         yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm state=present
 
+      - name: install mesos and docker packages
+        yum: pkg=device-mapper-event-libs,mesos,docker state=latest
+
+
       - name: set zookeeper master
         replace: dest=/etc/mesos/zk regexp="localhost" replace="192.168.1.10"
 
       - name: configure containerizers
         lineinfile: dest=/etc/mesos-slave/containerizers create=yes line="docker,mesos"
-
-
-      - name: install mesos and docker packages
-        yum: pkg=device-mapper-event-libs,mesos,docker state=latest
 
 
       - name: start mesos-master

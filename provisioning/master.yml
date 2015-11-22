@@ -5,7 +5,7 @@
   become_method: sudo
   tasks:
       - name: update hosts file
-        template: src=./hosts.j2 dest=/etc/hosts
+        template: src=templates/hosts.j2 dest=/etc/hosts
 
       - name: install mesosphere yum repo
         yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm state=present
