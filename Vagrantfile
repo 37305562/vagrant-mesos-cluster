@@ -17,6 +17,9 @@ Vagrant.configure(2) do |config|
       machine.vm.provision "ansible" do |ansible|
           ansible.playbook = "provisioning/master.yml"
           ansible.groups = ANSIBLE_GROUPS
+          ansible.extra_vars = {
+            id: "#{id}"
+          }
       end
     end
   end

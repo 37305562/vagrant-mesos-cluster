@@ -4,42 +4,47 @@
   become: yes
   become_method: sudo
   tasks:
-      - name: update hosts file
+
+      - name: Update hosts file
         template: src=templates/hosts.j2 dest=/etc/hosts
 
-      - name: install mesosphere yum repo
+
+      - name: Install mesosphere yum repo
         yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm state=present
 
-      - name: install zookeeper yum repo
+      - name: Install zookeeper yum repo
         yum: name=http://archive.cloudera.com/cdh4/one-click-install/redhat/6/x86_64/cloudera-cdh-4-0.x86_64.rpm state=present
 
-      - name: install zookeeper
-        yum: pkg=zookeeper,zookeeper-server state=latest
 
-      - name: configure zookeeper ID
+      - name: Install zookeeper
+        yum: pkg=zookeeper,zookeeper-server state=latest update_cache=yes
+
+      - name: Configure zookeeper ID
+        shell: echo {{id}} >> /etc/zookeeper/conf/myid
+
+      - name: Configure zookeeper ID
         become_user: zookeeper
-        shell: zookeeper-server-initialize --myid=1
+        shell: zookeeper-server-initialize --myid={{id}} --force
 
-      - name: install mesos, marathon, chronos, and docker packages
-        yum: pkg=device-mapper-event-libs,mesos,marathon,chronos,docker state=latest
 
-      - name: configure containerizers
+      - name: Install mesos, marathon, chronos
+        yum: pkg=mesos,marathon,chronos state=latest update_cache=yes
+
+      - name: Configure containerizers
         lineinfile: dest=/etc/mesos-slave/containerizers create=yes line="docker,mesos"
 
-      - name: start zookeeper
+
+      - name: Enable zookeeper
         service: name=zookeeper-server state=started enabled=yes
 
-      - name: start mesos-master
+      - name: Enable mesos-master
         service: name=mesos-master state=started enabled=yes
 
-      - name: start mesos-slave
-        service: name=mesos-slave state=started enabled=yes
+      - name: Disable mesos-slave
+        service: name=mesos-slave state=started enabled=no
 
-      - name: start marathon
+      - name: Enable marathon
         service: name=marathon state=started enabled=yes
 
-      - name: start chronos
+      - name: Enable chronos
         service: name=chronos state=started enabled=yes
-
-      - name: start docker
-        service: name=docker state=started enabled=yes
