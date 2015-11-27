@@ -8,12 +8,12 @@
       - name: Update hosts file
         template: src=templates/hosts.j2 dest=/etc/hosts
 
-
+        # http://downloads.mesosphere.io/master/centos/7/mesos-0.25.0-0.2.70.centos701406.x86_64.rpm
       - name: Install mesosphere yum repo
         yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm state=present
 
       - name: Install zookeeper yum repo
-        yum: name=http://archive.cloudera.com/cdh4/one-click-install/redhat/6/x86_64/cloudera-cdh-4-0.x86_64.rpm state=present
+        yum: name=http://archive.cloudera.com/cdh5/one-click-install/redhat/7/x86_64/cloudera-cdh-5-0.x86_64.rpm state=present
 
 
       - name: Install zookeeper
@@ -27,6 +27,7 @@
         shell: zookeeper-server-initialize --myid={{id}} --force
 
 
+        #https://open.mesosphere.com/downloads/mesos/#apache-mesos-0.25.0
       - name: Install mesos, marathon, chronos
         yum: pkg=mesos,marathon,chronos state=latest update_cache=yes
 
