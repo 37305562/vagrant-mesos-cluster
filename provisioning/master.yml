@@ -3,49 +3,7 @@
   remote_user: vagrant
   become: yes
   become_method: sudo
-  tasks:
-
-      - name: Update hosts file
-        template: src=templates/hosts.j2 dest=/etc/hosts
-
-        # http://downloads.mesosphere.io/master/centos/7/mesos-0.25.0-0.2.70.centos701406.x86_64.rpm
-      - name: Install mesosphere yum repo
-        yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm state=present
-
-      - name: Install zookeeper yum repo
-        yum: name=http://archive.cloudera.com/cdh5/one-click-install/redhat/7/x86_64/cloudera-cdh-5-0.x86_64.rpm state=present
-
-
-      - name: Install zookeeper
-        yum: pkg=zookeeper,zookeeper-server state=latest update_cache=yes
-
-      - name: Configure zookeeper ID
-        shell: echo {{id}} >> /etc/zookeeper/conf/myid
-
-      - name: Configure zookeeper ID
-        become_user: zookeeper
-        shell: zookeeper-server-initialize --myid={{id}} --force
-
-
-        #https://open.mesosphere.com/downloads/mesos/#apache-mesos-0.25.0
-      - name: Install mesos, marathon, chronos
-        yum: pkg=mesos,marathon,chronos state=latest update_cache=yes
-
-      - name: Configure containerizers
-        lineinfile: dest=/etc/mesos-slave/containerizers create=yes line="docker,mesos"
-
-
-      - name: Enable zookeeper
-        service: name=zookeeper-server state=started enabled=yes
-
-      - name: Enable mesos-master
-        service: name=mesos-master state=started enabled=yes
-
-      - name: Disable mesos-slave
-        service: name=mesos-slave state=started enabled=no
-
-      - name: Enable marathon
-        service: name=marathon state=started enabled=yes
-
-      - name: Enable chronos
-        service: name=chronos state=started enabled=yes
+  roles:
+    - zookeeper
+    - { role: "mesos", mesos_type: "master" }
+    - marathon

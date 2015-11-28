@@ -1,0 +1,9 @@
+#
+# Marathon
+#
+---
+- name: Install Marathon
+  yum: pkg=marathon state=latest update_cache=yes
+
+- name: Enable marathon
+  service: name=marathon state=started enabled=yes

@@ -1,0 +1,9 @@
+#
+# Docker
+#
+---
+- name: Install Docker
+  yum: pkg=docker,device-mapper-event-libs state=latest
+
+- name: Enable Docker
+  service: name=docker state=started enabled=yes

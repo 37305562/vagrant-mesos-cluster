@@ -3,33 +3,6 @@
   remote_user: vagrant
   become: yes
   become_method: sudo
-  tasks:
-      - name: Update hosts file
-        template: src=templates/hosts.j2 dest=/etc/hosts
-
-      - name: Configure dns
-        template: src=templates/resolv.conf.j2 dest=/etc/resolv.conf
-
-
-      - name: Install mesosphere yum repo
-        yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm state=present
-
-      - name: Install mesos and docker packages
-        yum: pkg=device-mapper-event-libs,mesos,docker state=latest
-
-
-      - name: Set mesos-slave (zookeeper master)
-        replace: dest=/etc/mesos/zk regexp="localhost" replace="192.168.10.2"
-
-      - name: Configure mesos-slave (docker containers)
-        lineinfile: dest=/etc/mesos-slave/containerizers create=yes line="docker,mesos"
-
-
-      - name: Disable mesos-master
-        service: name=mesos-master state=stopped enabled=no
-
-      - name: Enable mesos-slave
-        service: name=mesos-slave state=started enabled=yes
-
-      - name: Enable docker
-        service: name=docker state=started enabled=yes
+  roles:
+    - docker
+    - { role: "mesos", mesos_type: "slave" }
