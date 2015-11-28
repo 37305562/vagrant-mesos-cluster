@@ -3,11 +3,6 @@
 
 # Hosts-based DNS, Carl!!!
 
-192.168.99.11 master1
-192.168.99.12 master2
-192.168.99.13 master3
-
-192.168.99.14 node1
-192.168.99.15 node2
-192.168.99.16 node3
-192.168.99.17 node4
+{% for ip, host in hosts %}
+{{ ip }} {{ host }}
+{% endfor %}
