@@ -4,5 +4,5 @@
   become: yes
   become_method: sudo
   roles:
-    - docker
-    - { role: "mesos", mesos_type: "slave" }
+    - { role: "docker", tags: "zookeeper" }
+    - { role: "mesos", mesos_type: "slave", tags: "mesos" }

@@ -4,6 +4,6 @@
   become: yes
   become_method: sudo
   roles:
-    - zookeeper
-    - { role: "mesos", mesos_type: "master" }
-    - marathon
+    - { role: "zookeeper", tags: "zookeeper" }
+    - { role: "mesos", mesos_type: "master", tags: "mesos" }
+    - { role: "marathon, tags: "marathon" }

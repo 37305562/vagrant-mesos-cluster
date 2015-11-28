@@ -9,7 +9,7 @@
   lineinfile: dest=/var/lib/zookeeper/myid create=yes line="{{zk_id}}"
 
 - name: Configure Zookeeper hosts
-  template: src=templates/zoo.cfg.j2 dest=/etc/zookeeper/conf/zoo.cfg
+  template: src=zoo.cfg.j2 dest=/etc/zookeeper/conf/zoo.cfg
 
 - name: Enable Zookeeper
   service: name=zookeeper-server state=started enabled=yes
