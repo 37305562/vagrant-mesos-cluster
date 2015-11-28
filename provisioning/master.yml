@@ -6,4 +6,4 @@
   roles:
     - { role: "zookeeper", tags: "zookeeper" }
     - { role: "mesos", mesos_type: "master", tags: "mesos" }
-    - { role: "marathon, tags: "marathon" }
+    - { role: "marathon", tags: "marathon" }
