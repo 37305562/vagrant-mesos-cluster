@@ -3,6 +3,6 @@
 
 # Hosts-based DNS, Carl!!!
 
-{% for ip, host in hosts %}
-{{ ip }} {{ host }}
+{% for host, ip in hosts.iteritems() %}
+{{ ip }}  {{ host }}
 {% endfor %}
