@@ -8,14 +8,14 @@
 
 
 - name: Configure Mesos ZK settings
-  lineinfile: dest=/etc/mesos/zk create=yes line="zk://{{zk_host1}}:2181,{{zk_host2}}:2181,{{zk_host3}}:2181/mesos"
+  shell: echo "zk://{{zk_host1}}:2181,{{zk_host2}}:2181,{{zk_host3}}:2181/mesos" > /etc/mesos/zk
 
 - name: Configure Mesos Master quorum
-  lineinfile: dest=/etc/mesos-master/quorum create=yes line="{{mesos_quorum}}"
+  shell: echo "{{mesos_quorum}}" > /etc/mesos-master/quorum
   when: mesos_type == "master"
 
 - name: Configure Mesos containerizers
-  lineinfile: dest=/etc/mesos-slave/containerizers create=yes line="docker,mesos"
+  shell: echo "docker,mesos" > /etc/mesos-slave/containerizers
   when: mesos_type == "slave"
 
 
