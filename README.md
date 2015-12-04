@@ -29,3 +29,13 @@ Vagrant.configure("2") do |config|
   end
 end
 ```
+
+### Packages Version
+The following packages were used:
+
+```
+[vagrant@master1 ~]$ rpm -qa | grep mesos | sort
+mesos-0.25.0-0.2.70.centos701406.x86_64
+mesosphere-el-repo-7-1.noarch
+mesosphere-zookeeper-3.4.6-0.1.20141204175332.centos7.x86_64
+```
