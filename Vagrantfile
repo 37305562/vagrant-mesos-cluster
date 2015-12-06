@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
 
       # In case of problems clean up all the existing virtual interfaces (see VirtualBox instructions)
       # https://www.virtualbox.org/manual/ch06.html#network_hostonly
-      # Mesos is now available at http://192.168.99.11:5050/
+      # Mesos is now available at http://192.168.99.11:5050/ (update host's /etc/host file to access VM by its names)
       machine.vm.network "private_network", :ip => host[1]
 
       machine.vm.provision "ansible" do |ansible|
