@@ -21,3 +21,6 @@
 
 - name: Enable Mesos Master
   service: name=mesos-dns state=started enabled=yes
+
+- name: Replace resolv.conf with MesosDNS
+  copy: src=files/resolv.conf dest=/etc/resolv.conf mode=0644
