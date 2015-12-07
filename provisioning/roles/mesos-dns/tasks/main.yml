@@ -1,0 +1,23 @@
+#
+# MesosDNS
+#
+# https://mesosphere.github.io/mesos-dns/docs/tutorial-systemd.html
+#
+---
+- name: Download MesosDNS binary
+  get_url: url=https://github.com/mesosphere/mesos-dns/releases/download/{{mesos-dns-version}}/mesos-dns-{{mesos-dns-version}}-linux-amd64
+    dest=/usr/bin/mesos-dns mode=0550
+
+- name: Configure MesosDNS (check folder)
+  file: path=/etc/mesos-dns state=directory
+
+- name: Configure MesosDNS (copy config)
+  template:
+    src: config.json.j2
+    dest: /etc/mesos-dns/config.json
+
+- name: Set up MesosDNS service
+  copy: src=files/mesos-dns.service dest=/etc/systemd/system mode=0644
+
+- name: Enable Mesos Master
+  service: name=mesos-dns state=started enabled=yes
