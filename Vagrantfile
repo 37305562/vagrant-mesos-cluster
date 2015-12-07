@@ -23,16 +23,10 @@ Vagrant.configure(2) do |config|
     config.vm.define host[0] do |machine|
       machine.vm.hostname = host[0]
 
-      # be aware about dhcp issues https://github.com/mitchellh/vagrant/issues/2968
+      # In case of problems clean up all the existing virtual interfaces (see VirtualBox instructions)
+      # https://www.virtualbox.org/manual/ch06.html#network_hostonly
+      # Mesos is now available at http://192.168.99.11:5050/ (update host's /etc/host file to access VM by its names)
       machine.vm.network "private_network", :ip => host[1]
-
-      if host == "master1"
-        machine.vm.network :forwarded_port, guest: 80, host: 80
-        machine.vm.network :forwarded_port, guest: 81, host: 81      # HaProxy
-        machine.vm.network :forwarded_port, guest: 8080, host: 8080  # Mesos
-        machine.vm.network :forwarded_port, guest: 5050, host: 5050  # Marathon
-        machine.vm.network :forwarded_port, guest: 8000, host: 8000  # Bamboo
-      end
 
       machine.vm.provision "ansible" do |ansible|
           ansible.playbook = "provisioning/master.yml"
