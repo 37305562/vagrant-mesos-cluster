@@ -1,1 +1,7 @@
 .vagrant
+
+build
+.gradle
+.idea
+*.iml
+gradle*
