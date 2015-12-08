@@ -1,0 +1,15 @@
+input {
+  udp {
+    port => 5959
+    codec => json
+  }
+}
+
+output {
+  elasticsearch {
+    embedded => false
+    host => "{{es_logs}}"
+    port => "9200"
+    protocol => "http"
+  }
+}

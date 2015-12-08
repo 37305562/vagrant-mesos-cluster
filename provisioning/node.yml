@@ -7,3 +7,4 @@
     - { role: "docker", tags: "zookeeper" }
     - { role: "mesos", mesos_type: "slave", tags: "mesos" }
     - { role: "mesos-dns", tags: "dns" }
+    - { role: "logstash", tags: "logstash" }
