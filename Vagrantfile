@@ -62,7 +62,7 @@ Vagrant.configure(2) do |config|
             zk_host1: "master1",
             zk_host2: "master2",
             zk_host3: "master3",
-            es_logs_host: HOSTS['logs'].keys[0]
+            es_logs_host: HOSTS['logs'].keys[0],
             hosts: HOSTS['masters'].merge(HOSTS['nodes'])
           }
       end
@@ -78,7 +78,7 @@ Vagrant.configure(2) do |config|
           ansible.playbook = "provisioning/log.yml"
           ansible.groups = { "logs" => HOSTS['logs'].keys }
           ansible.extra_vars = {
-            hosts: HOSTS['logs'])
+            hosts: HOSTS['logs']
           }
       end
     end
