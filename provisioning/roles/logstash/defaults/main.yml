@@ -1,2 +1,2 @@
-es_logs: localhost
+es_logs_host: localhost
 logstash_config_dir: /etc/logstash/conf.d

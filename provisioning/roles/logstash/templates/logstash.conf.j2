@@ -8,7 +8,7 @@ input {
 output {
   elasticsearch {
     embedded => false
-    host => "{{es_logs}}"
+    host => "{{es_logs_host}}"
     port => "9200"
     protocol => "http"
   }

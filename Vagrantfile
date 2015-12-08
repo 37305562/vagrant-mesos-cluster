@@ -13,6 +13,9 @@ HOSTS = {
     "node1"   => "192.168.99.21",
     "node2"   => "192.168.99.22",
     "node3"   => "192.168.99.23"
+  },
+  "logs" => {
+    "log1"    => "192.168.99.24"
   }
 }
 
@@ -59,7 +62,23 @@ Vagrant.configure(2) do |config|
             marathon_host1: "master1",
             marathon_host2: "master2",
             marathon_host3: "master3",
+            es_logs_host: HOSTS['logs'].keys[0]
             hosts: HOSTS['masters'].merge(HOSTS['nodes'])
+          }
+      end
+    end
+  end
+
+  HOSTS['logs'].each_with_index do |host, index|
+    config.vm.define host[0] do |machine|
+      machine.vm.hostname = host[0]
+      machine.vm.network "private_network", :ip => host[1]
+
+      machine.vm.provision "ansible" do |ansible|
+          ansible.playbook = "provisioning/log.yml"
+          ansible.groups = { "logs" => HOSTS['logs'].keys }
+          ansible.extra_vars = {
+            hosts: HOSTS['logs'])
           }
       end
     end
