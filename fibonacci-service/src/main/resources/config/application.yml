@@ -1,2 +1,9 @@
 server:
   port: 8099
+
+dns:
+  host: localhost
+  port: 53
+
+service:
+  name: fibonacci

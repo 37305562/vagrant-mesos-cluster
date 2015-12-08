@@ -1,6 +1,12 @@
 package name.krestjaninoff.mesos.fibonacci.controller;
 
+import name.krestjaninoff.mesos.fibonacci.service.FibonacciClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * Fibonacci controller
@@ -12,9 +18,13 @@ import org.springframework.web.bind.annotation.*;
 public class FibonacciController {
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(FibonacciController.class);
 
+    @Autowired
+    private FibonacciClient client;
+
     @RequestMapping(value = "/{n}", method = RequestMethod.GET)
     @ResponseBody
-    public Integer calculate(@PathVariable("n") Integer n) {
+    public Integer calculate(@PathVariable("n") Integer n) throws ExecutionException, InterruptedException {
+        LOG.info("Invoked Fibonacci calculation for " + n);
 
         Integer value;
         if (n < 0) {
@@ -25,12 +35,18 @@ public class FibonacciController {
             value = n;
 
         } else {
-            // TODO Add service discovery and client-based load balancing
-            // TODO Async invocation
+            // Invoke both calculations in parallel to double the computation speed
 
-            value = calculate(n - 1) + calculate(n - 2);
+            Future<ResponseEntity<Integer>> n1Future = client.invoke(n - 1);
+            Future<ResponseEntity<Integer>> n2Future = client.invoke(n - 2);
+
+            Integer n1 = n1Future.get().getBody();
+            Integer n2 = n2Future.get().getBody();
+
+            value = n1 + n2;
         }
 
+        LOG.info("Calculation for " + n + " completed: " + value);
         return value;
     }
 }
