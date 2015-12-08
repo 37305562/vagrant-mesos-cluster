@@ -3,6 +3,7 @@ package name.krestjaninoff.mesos.fibonacci.service.discovery;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.json.JSONArray;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +18,7 @@ import java.util.List;
  * @link https://mesosphere.github.io/mesos-dns/docs/http.html
  */
 @Service
+@ConditionalOnExpression("${dns.enabled:true}")
 public class MesosDnsDiscoveryService implements DiscoveryService {
 
     @Value("${dns.host}")
@@ -37,6 +39,7 @@ public class MesosDnsDiscoveryService implements DiscoveryService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Pair<String, Integer>> getServiceInstances(String serviceName) {
         List<Pair<String, Integer>> instances = new ArrayList<>();
 
