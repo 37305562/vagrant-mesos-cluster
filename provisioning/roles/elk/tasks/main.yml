@@ -1,0 +1,8 @@
+#
+# ElasticSearch and Kibana (from a docker container)
+#
+# See https://hub.docker.com/r/nshou/elasticsearch-kibana/
+#
+---
+- name: Install ELK
+  shell: docker run -d -p 9200:9200 -p 5601:5601 nshou/elasticsearch-kibana
