@@ -19,7 +19,7 @@
 - name: Set up MesosDNS service
   copy: src=files/mesos-dns.service dest=/etc/systemd/system mode=0644
 
-- name: Enable Mesos Master
+- name: Enable MesosDNS service
   service: name=mesos-dns state=started enabled=yes
 
 - name: Replace resolv.conf with MesosDNS
