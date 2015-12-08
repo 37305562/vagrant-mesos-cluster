@@ -38,6 +38,8 @@ dependencies {
     compile "org.json:json:20151123"
     compile "org.apache.commons:commons-lang3:3.4"
 
+    compile 'org.apache.httpcomponents:httpclient:4.5.1'
+
     compile "org.codehaus.groovy:groovy-all:${logbackVersion}"
     compile 'net.logstash.logback:logstash-logback-encoder:4.4'
 

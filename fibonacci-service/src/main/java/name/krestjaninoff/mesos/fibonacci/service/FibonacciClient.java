@@ -5,6 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.AsyncRestTemplate;
 
@@ -24,13 +25,18 @@ public class FibonacciClient {
     @Autowired
     private LoadBalancer loadBalancer;
 
+
+    @Autowired
+    private SimpleClientHttpRequestFactory simpleClientHttpRequestFactory;
+
     private AsyncRestTemplate restTemplate;
 
 
     @PostConstruct
     public void init() {
-        this.restTemplate = new AsyncRestTemplate();
+        this.restTemplate = new AsyncRestTemplate(simpleClientHttpRequestFactory);
     }
+
 
     public Future<ResponseEntity<Integer>> invoke(Integer n) {
 
