@@ -1,0 +1,36 @@
+#
+# Bamboo and Haproxy install
+#
+# https://github.com/QubitProducts/bamboo/tree/master/ (see "builder" folder)
+#
+---
+- name: Install HaProxy
+  sudo: yes
+  yum: pkg=haproxy state=present update_cache=yes
+  tags: yum
+
+#
+# Build Bamboo package (manually)
+#
+# https://github.com/QubitProducts/bamboo/blob/master/builder/build.sh
+#
+# docker build -f Dockerfile-deb -t bamboo-build .
+# docker run -it -v $(pwd)/output:/output bamboo-build
+#
+#- name: Install Git and FPM (to build Bamboo package)
+#  sudo: yes
+#  yum: pkg=git,fpm state=present update_cache=yes
+#  tags: yum
+
+- name: Install Bamboo
+  sudo: yes
+  yum: pkg=bamboo state=present update_cache=yes
+  tags: yum
+
+- name: Configure Bamboo (copy config)
+  template:
+    src: production.json.j2
+    dest: /var/bamboo/production.json
+
+- name: Enable Bamboo server
+  service: name=bamboo-server state=restarted enabled=yes
