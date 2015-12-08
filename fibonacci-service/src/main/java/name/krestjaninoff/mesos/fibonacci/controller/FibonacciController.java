@@ -36,12 +36,15 @@ public class FibonacciController {
 
         } else {
             // Invoke both calculations in parallel to double the computation speed
-
+            // (yes, this solution has huge overhead, but this example is about distributed systems, not effective calculations)
             Future<ResponseEntity<Integer>> n1Future = client.invoke(n - 1);
             Future<ResponseEntity<Integer>> n2Future = client.invoke(n - 2);
 
             Integer n1 = n1Future.get().getBody();
+            LOG.debug("Calculated N1");
+
             Integer n2 = n2Future.get().getBody();
+            LOG.debug("Calculated N2");
 
             value = n1 + n2;
         }
