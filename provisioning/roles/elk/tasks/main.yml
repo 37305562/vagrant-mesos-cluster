@@ -1,8 +1,15 @@
 #
 # ElasticSearch and Kibana (from a docker container)
 #
-# See https://hub.docker.com/r/nshou/elasticsearch-kibana/
+# See https://hub.docker.com/_/elasticsearch/
+# See https://hub.docker.com/_/kibana/
+#
+# You shouldn't run ES in this way (at least until you move its data/logs dirs outside the container),
+# that is just an academical example :)
 #
 ---
-- name: Install ELK
-  shell: docker run -d -p 9200:9200 -p 5601:5601 nshou/elasticsearch-kibana
+- name: Install ElasticSeach
+  shell: docker run -d --name elasticsearch elasticsearch
+
+- name: Install Kibana
+  shell: docker run -d --name kibana --link elasticsearch:elasticsearch -p 5601:5601 kibana
