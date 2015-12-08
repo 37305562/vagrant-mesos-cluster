@@ -40,6 +40,9 @@ Vagrant.configure(2) do |config|
             zk_host2: "master2",
             zk_host3: "master3",
             mesos_quorum: 2,
+            marathon_host1: "master1",
+            marathon_host2: "master2",
+            marathon_host3: "master3",
             hosts: HOSTS['masters'].merge(HOSTS['nodes'])
           }
       end
@@ -59,9 +62,6 @@ Vagrant.configure(2) do |config|
             zk_host1: "master1",
             zk_host2: "master2",
             zk_host3: "master3",
-            marathon_host1: "master1",
-            marathon_host2: "master2",
-            marathon_host3: "master3",
             es_logs_host: HOSTS['logs'].keys[0]
             hosts: HOSTS['masters'].merge(HOSTS['nodes'])
           }
