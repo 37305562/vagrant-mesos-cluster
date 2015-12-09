@@ -33,8 +33,8 @@ end
 ### Virtualization issues
 
   * VBox interfaces are always in UNKNOWN state (no IPv4 address): https://www.virtualbox.org/ticket/14526
-  * Host-only network is unreachable from the host machine: remove all the virtual interfaces (through VBox GUI) and try again
-  
+  * Host-only network is unreachable from the host machine: remove all the virtual interfaces (through VBox GUI) and try again (https://www.virtualbox.org/manual/ch06.html#network_hostonly)
+
 
 ### Packages Version
 

@@ -26,9 +26,11 @@ Vagrant.configure(2) do |config|
     config.vm.define host[0] do |machine|
       machine.vm.hostname = host[0]
 
-      # In case of problems clean up all the existing virtual interfaces (see VirtualBox instructions)
-      # https://www.virtualbox.org/manual/ch06.html#network_hostonly
-      # Mesos is now available at http://192.168.99.11:5050/ (update host's /etc/host file to access VM by its names)
+      # Update host's /etc/host file to access VM by its names
+      # Mesos    - http://192.168.99.11:5050
+      # Marathon - http://192.168.99.11:8080
+      # HaProxy  - http://192.168.99.11:81
+      # Bamboo   - http://192.168.99.11:8000
       machine.vm.network "private_network", :ip => host[1]
 
       machine.vm.provision "ansible" do |ansible|
@@ -69,6 +71,7 @@ Vagrant.configure(2) do |config|
     end
   end
 
+  # Kibana to be available at: http://192.168.99.24:5601
   HOSTS['logs'].each_with_index do |host, index|
     config.vm.define host[0] do |machine|
       machine.vm.hostname = host[0]

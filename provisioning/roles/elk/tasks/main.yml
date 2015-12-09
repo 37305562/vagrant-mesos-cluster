@@ -5,7 +5,7 @@
 # See https://hub.docker.com/_/kibana/
 #
 # You shouldn't run ES in this way (at least until you move its data/logs dirs outside the container),
-# that is just an academical example :)
+# so that is just an academical example which can be quickly deployed :)
 #
 ---
 - name: Install ElasticSeach
