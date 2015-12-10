@@ -9,6 +9,9 @@
   yum: pkg=haproxy state=present update_cache=yes
   tags: yum
 
+- name: Enable HaProxy
+  service: name=haproxy state=restarted enabled=yes
+
 #
 # Building Bamboo package (manually)
 #
