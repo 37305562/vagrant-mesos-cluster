@@ -12,7 +12,7 @@ It includes the following technologies:
   * ELK (ElasticSearch + LogStash + Kibana)
 
 Also there is a little SpringBoot based distributed service ("fibonacci-service") which can be Dockerized
-and deployed into the cluster to illustrates its work and produce some logs.
+and deployed into the cluster to illustrate its work and produce some logs.
 
 
 ### Dependencies
@@ -31,16 +31,16 @@ on your local machine before you can start.
 
 #### Cluster
 
-First of all, open the "Vagrantfile" and study it :) As you can see we are going to create 3 groups of servers:
+First of all, open the "Vagrantfile" and study it :) As you can see, we are going to create 3 groups of servers:
 
   * Mesos masters
   * Mesos nodes/slaves
   * Logs storages
 
 Each group is provided by its own Ansible playbook (see "ansible" folder). The most intersting part here is
-"role" folder where you can find all the installation logic for the specific components.
+"role" folder, where you can find all the installation logic for the specific components.
 
-Anyway, all you need to do here is run
+Anyway, all you need to do to start the party is
 
 ```
 vagrant up
@@ -48,7 +48,7 @@ vagrant up
 
 It takes some time to download and install all the stuff... so be patient :)
 
-The only thing *you should worry about* here is *Bamboo package*. Unfortunately, you have to assemble it manually.
+The only thing **you should worry about** here is **Bamboo package**. Unfortunately, you have to assemble it manually.
 See `ansible/roles/bamboo/tasks/main.yml` for the instruction.
 
 After the job is done you access the following interfaces:
@@ -64,9 +64,9 @@ if you want to use short names like `master1`.
 
 #### Service
 
-So, you have a cluster! Now, its time to test it. For that we have a little SpringBoot
-REST service which calculates a value of N Fibonacci number. The point is it does it
-in dynamic programming manner - by invocation of another instances of itself
+So, you have a cluster! Now, it's time to test it. For that we have a little SpringBoot
+REST service which calculates the value of N-th Fibonacci number. The point is it does it
+in a dynamic programming manner, i.e. by invocation of another instances of itself
 (which are deployed into the cluster). So, that is a quite interesting example for testing.
 
 A Docker image with the service is already published into DockerHub as `krestjaninoff/fibonacci-service`.
@@ -87,13 +87,15 @@ To run the image on the cluster you have to perform two steps:
 For that we have a special ansible playbook (`deploy.yml`). If you are too lazy to run it manually,
 consider `deploy.sh` script in the root folder :)
 
+Remember, you can use Marathon UI (the link is above) to observer the deployment progress.
+
 Once the app is deployed you can easily invoke it through HaProxy:
 
 ```
-http://192.168.99.11:81/service/fibonacci/10
+http://192.168.99.11:5000/service/fibonacci/10
 ```
 
-where `10` is number of position in the Fibonacci sequence. Have fun and don't forget to check the logs (Kibana link is above) :)
+where `10` is number of position in the Fibonacci sequence. Have fun and don't forget to check the logs (the link is above) :)
 
 
 ### Troubleshooting
