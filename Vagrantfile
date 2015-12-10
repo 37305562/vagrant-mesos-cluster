@@ -47,6 +47,7 @@ Vagrant.configure(2) do |config|
             marathon_host3: "master3",
             hosts: HOSTS['masters'].merge(HOSTS['nodes'])
           }
+          #ansible.tags="bamboo"
       end
 
     end

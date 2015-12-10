@@ -5,7 +5,7 @@
 #
 ---
 - name: Download MesosDNS binary
-  get_url: url=https://github.com/mesosphere/mesos-dns/releases/download/{{mesos-dns-version}}/mesos-dns-{{mesos-dns-version}}-linux-amd64
+  get_url: url=https://github.com/mesosphere/mesos-dns/releases/download/{{mesos_dns_version}}/mesos-dns-{{mesos_dns_version}}-linux-amd64
     dest=/usr/bin/mesos-dns mode=0550
 
 - name: Configure MesosDNS (check folder)
@@ -17,10 +17,10 @@
     dest: /etc/mesos-dns/config.json
 
 - name: Set up MesosDNS service
-  copy: src=files/mesos-dns.service dest=/etc/systemd/system mode=0644
+  copy: src=mesos-dns.service dest=/etc/systemd/system mode=0644
 
 - name: Enable MesosDNS service
   service: name=mesos-dns state=started enabled=yes
 
 - name: Replace resolv.conf with MesosDNS
-  copy: src=files/resolv.conf dest=/etc/resolv.conf mode=0644
+  copy: src=resolv.conf dest=/etc/resolv.conf mode=0644
