@@ -29,7 +29,7 @@ Vagrant.configure(2) do |config|
       # Update host's /etc/host file to access VM by its names
       # Mesos    - http://192.168.99.11:5050
       # Marathon - http://192.168.99.11:8080
-      # HaProxy  - http://192.168.99.11:81
+      # HaProxy  - http://192.168.99.11:5000
       # Bamboo   - http://192.168.99.11:8000
       machine.vm.network "private_network", :ip => host[1]
 
