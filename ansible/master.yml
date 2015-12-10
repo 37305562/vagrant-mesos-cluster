@@ -1,3 +1,6 @@
+#
+# Marathon masters
+#
 ---
 - hosts: masters
   remote_user: vagrant

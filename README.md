@@ -1,4 +1,4 @@
-A Vagrant based Mesos cluster (for academical purposes).
+A Vagrant based Mesos cluster
 
 
 ### Dependencies

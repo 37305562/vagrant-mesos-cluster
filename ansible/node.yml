@@ -1,3 +1,6 @@
+#
+# Marathon nodes
+#
 ---
 - hosts: nodes
   remote_user: vagrant

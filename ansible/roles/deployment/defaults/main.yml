@@ -1,9 +1,10 @@
 marathon_host: "UNDEFINED"
+bamboo_host: "UNDEFINED"
+
 app_id: "/service/APP_ID"
 manifest: "springboot.json"
-  
+
 memory: 256.0
-start_command: ""
 
 image_name: "IMAGE_NAME"
 image_version: "IMAGE_VERSION"

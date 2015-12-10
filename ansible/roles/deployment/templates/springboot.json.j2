@@ -8,22 +8,20 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "docker.moscow.alfaintra.net/{{image_name}}:{{image_version}}",
+      "image": "{{image_name}}:{{image_version}}",
       "forcePullImage": true,
       "network": "BRIDGE",
       "portMappings": [
-        { "containerPort": 8080, "hostPort": 0, "servicePort": 0, "protocol": "tcp" }
+        { "containerPort": {{service_port}}, "hostPort": 0, "servicePort": 0, "protocol": "tcp" }
       ],
       "parameters": [
-        { "key": "env", "value": "NODE_ENV=PRODUCTION"},
-        { "key": "dns", "value": "172.17.42.1" },
+        { "key": "dns", "value": "172.17.42.1"},
         { "key": "env", "value": "LOGSTASH_HOST=172.17.42.1"},
-        { "key": "env", "value": "LOGSTASH_PORT=5959"}
+        { "key": "env", "value": "dns.enabled=true"},
+        { "key": "env", "value": "dns.host=172.17.42.1"}
       ]
     }
   },
-
-  "cmd": "{{start_command}}",
 
   "backoffFactor": 2,
   "backoffSeconds": 30,
@@ -33,7 +31,7 @@
     {
       "protocol": "HTTP",
       "portIndex": 0,
-      "path": "/healthmonitor",
+      "path": "/",
       "gracePeriodSeconds": 5,
       "intervalSeconds": 20,
       "maxConsecutiveFailures": 3
