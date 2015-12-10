@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
       machine.vm.network "private_network", :ip => host[1]
 
       machine.vm.provision "ansible" do |ansible|
-          ansible.playbook = "provisioning/master.yml"
+          ansible.playbook = "ansible/master.yml"
           ansible.groups = { "masters" => HOSTS['masters'].keys }
           ansible.extra_vars = {
             zk_id: "#{index + 1}",
@@ -59,7 +59,7 @@ Vagrant.configure(2) do |config|
       machine.vm.network "private_network", :ip => host[1]
 
       machine.vm.provision "ansible" do |ansible|
-          ansible.playbook = "provisioning/node.yml"
+          ansible.playbook = "ansible/node.yml"
           ansible.groups = { "nodes" => HOSTS['nodes'].keys }
           ansible.extra_vars = {
             zk_host1: "master1",
@@ -79,7 +79,7 @@ Vagrant.configure(2) do |config|
       machine.vm.network "private_network", :ip => host[1]
 
       machine.vm.provision "ansible" do |ansible|
-          ansible.playbook = "provisioning/log.yml"
+          ansible.playbook = "ansible/log.yml"
           ansible.groups = { "logs" => HOSTS['logs'].keys }
           ansible.extra_vars = {
             hosts: HOSTS['logs']
