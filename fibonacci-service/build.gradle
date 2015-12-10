@@ -48,9 +48,14 @@ dependencies {
 
 
 task buildDocker(type: Docker, dependsOn: build) {
+    // Do not forget to "docker login" before running this
     push = true
+
     applicationName = jar.baseName
+    tag = "krestjaninoff/fibonacci-service"
+    tagVersion = "latest"
     dockerfile = file('src/main/docker/Dockerfile')
+
     doFirst {
         copy {
             from jar
