@@ -10,21 +10,35 @@
   tags: yum
 
 #
-# Build Bamboo package (manually)
+# Building Bamboo package (manually)
 #
-# https://github.com/QubitProducts/bamboo/blob/master/builder/build.sh
+# Unfortunately, there is no a repo with Bamboo package. So, you have to build it manually (see the commands below)
+# and store it on your local machine before running this role.
 #
-# docker build -f Dockerfile-deb -t bamboo-build .
-# docker run -it -v $(pwd)/output:/output bamboo-build
+# See Bamboo's home page for details: https://github.com/QubitProducts/bamboo/
 #
-#- name: Install Git and FPM (to build Bamboo package)
-#  sudo: yes
-#  yum: pkg=git,fpm state=present update_cache=yes
-#  tags: yum
-
+# dnf install git golang ruby-devel gcc
+# gem install fpm
+#
+# mkdir -p scr/github.com/QubitProducts/
+# git clone https://github.com/QubitProducts/bamboo.git src/github.com/QubitProducts/bamboo
+# cd src/github.com/QubitProducts/bamboo
+#
+# #go get github.com/tools/godep
+# export GOPATH=`pwd`/../../../../:/usr/lib/golang
+#
+# go build bamboo.go
+# ./builder/build.sh
+#
+# ls -al output
+# ~bamboo_1.0.0-1_all.deb
+# ~bamboo-1.0.0_1-1.noarch.rpm (if you need a RPM package, just update ./builder/build.sh script)
+#
+# cp output/bamboo-1.0.0_1-1.noarch.rpm /tmp
+#
 - name: Install Bamboo
   sudo: yes
-  yum: pkg=bamboo state=present update_cache=yes
+  yum: pkg=/tmp/bamboo-1.0.0_1-1.noarch.rpm state=present
   tags: yum
 
 - name: Configure Bamboo (copy config)
