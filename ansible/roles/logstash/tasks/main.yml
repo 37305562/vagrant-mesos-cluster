@@ -11,7 +11,7 @@
 - name: UnInstall LogStash (if any)
   sudo: yes
   ignore_errors: yes
-  yum: pkg=logstash state=absent
+  yum: pkg=logstash,java state=absent
   tags: yum
 
 - name: Install LogStash packages
