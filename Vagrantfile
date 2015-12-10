@@ -66,7 +66,7 @@ Vagrant.configure(2) do |config|
             zk_host2: "master2",
             zk_host3: "master3",
             es_logs_host: HOSTS['logs'].keys[0],
-            hosts: HOSTS['masters'].merge(HOSTS['nodes'])
+            hosts: HOSTS['masters'].merge(HOSTS['nodes']).merge(HOSTS['logs'])
           }
       end
     end
