@@ -33,8 +33,14 @@
 # ls -al output
 # ~bamboo_1.0.0-1_all.deb
 # ~bamboo-1.0.0_1-1.noarch.rpm (if you need a RPM package, just update ./builder/build.sh script)
+# #  currently (10.12.2015 rpm installaction is broken and requires)
+#
 #
 # cp output/bamboo-1.0.0_1-1.noarch.rpm /tmp
+#
+# # Copy the package into a Vagrant VM (must be launched from Vagrant work dir)
+# OPTIONS=`vagrant ssh-config master1 | grep -v '^Host ' | awk -v ORS=' ' 'NF{print "-o " $1 "=" $2}'`
+# scp ${OPTIONS} /tmp/bamboo-1.0.0_1-1.noarch.rpm v:/tmp
 #
 - name: Install Bamboo
   sudo: yes
@@ -45,6 +51,15 @@
   template:
     src: production.json.j2
     dest: /var/bamboo/production.json
+
+- name: Configure SystemD
+  copy: src=bamboo-server.service
+        dest=/usr/lib/systemd/system/
+        owner=root group=root mode=0644
+  tags: yum
+
+- name: Reload SystemD
+  shell: systemctl daemon-reload
 
 - name: Enable Bamboo server
   service: name=bamboo-server state=restarted enabled=yes

@@ -1,0 +1,18 @@
+[Unit]
+Description=Bamboo Server
+Documentation=https://github.com/QubitProducts/bamboo
+After=network.target
+
+[Service]
+Environment="HOME=/opt/bamboo"
+ExecStart=/opt/bamboo/bamboo -config /var/bamboo/production.json -log /var/bamboo/log/bamboo-server.log
+LimitNOFILE=65536
+Restart=on-failure
+RestartSec=5
+User=root
+Group=root
+UMask=007
+TimeoutStopSec=300
+
+[Install]
+WantedBy=multi-user.target
