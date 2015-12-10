@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd ./ansible
-ansible-playbook deployment.yml
+ansible-playbook deploy.yml
