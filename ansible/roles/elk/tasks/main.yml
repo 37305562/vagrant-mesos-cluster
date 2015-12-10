@@ -9,7 +9,7 @@
 #
 ---
 - name: Install ElasticSeach
-  shell: docker run -d --net=host --name elasticsearch elasticsearch
+  shell: docker run -d -p 9200:9200 -p 9300:9300 --name elasticsearch elasticsearch
 
 - name: Install Kibana
-  shell: docker run -d --name kibana --link elasticsearch:elasticsearch -p 5601:5601 kibana
+  shell: docker run -d --link elasticsearch:elasticsearch -p 5601:5601 --name kibana kibana
