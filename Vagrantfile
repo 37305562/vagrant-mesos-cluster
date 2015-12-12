@@ -26,6 +26,11 @@ Vagrant.configure(2) do |config|
     config.vm.define host[0] do |machine|
       machine.vm.hostname = host[0]
 
+      machine.vm.provider "virtualbox" do |vb|
+        vb.memory = "1024"
+        vb.cpus = "2"
+      end
+
       # Update host's /etc/host file to access VM by its names
       # Mesos    - http://192.168.99.11:5050
       # Marathon - http://192.168.99.11:8080
@@ -58,6 +63,11 @@ Vagrant.configure(2) do |config|
       machine.vm.hostname = host[0]
       machine.vm.network "private_network", :ip => host[1]
 
+      machine.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+        vb.cpus = "2"
+      end
+
       machine.vm.provision "ansible" do |ansible|
           ansible.playbook = "ansible/node.yml"
           ansible.groups = { "nodes" => HOSTS['nodes'].keys }
@@ -77,6 +87,11 @@ Vagrant.configure(2) do |config|
     config.vm.define host[0] do |machine|
       machine.vm.hostname = host[0]
       machine.vm.network "private_network", :ip => host[1]
+
+      machine.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+        vb.cpus = "2"
+      end
 
       machine.vm.provision "ansible" do |ansible|
           ansible.playbook = "ansible/log.yml"
