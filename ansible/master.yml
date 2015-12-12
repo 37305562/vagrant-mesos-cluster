@@ -1,5 +1,5 @@
 #
-# Marathon masters
+# Mesos masters
 #
 ---
 - hosts: masters
@@ -10,10 +10,3 @@
     - { role: "zookeeper", tags: "zookeeper" }
     - { role: "mesos", mesos_type: "master", tags: "mesos" }
     - { role: "marathon", tags: "marathon" }
-
-- hosts: masters[0]
-  remote_user: vagrant
-  become: yes
-  become_method: sudo
-  roles:
-    - { role: "bamboo", tags: "bamboo" }

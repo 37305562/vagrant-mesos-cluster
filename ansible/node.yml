@@ -1,5 +1,5 @@
 #
-# Marathon nodes
+# Mesos nodes
 #
 ---
 - hosts: nodes

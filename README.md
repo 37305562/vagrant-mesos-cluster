@@ -48,10 +48,21 @@ vagrant up
 
 It takes some time to download and install all the stuff... so be patient :)
 
-The only thing **you should worry about** here is **Bamboo package**. Unfortunately, you have to assemble it manually.
-See `ansible/roles/bamboo/tasks/main.yml` for the instruction.
+##### Bamboo instalation
 
-After the job is done you access the following interfaces:
+The only thing **you should worry about** here is **Bamboo package**. Unfortunately, you have to assemble it manually.
+See `ansible/roles/bamboo/tasks/main.yml` for the instructions. When the package is assembled and uploaded
+into `master1` machine:
+
+  * open the Vagrantfile
+  * switch `ansible.playbook` in `masters` section to `ansible/master_bamboo.yml`
+  * run `vagrant provision master1`
+
+Now Bamboo and HaProxy are up and running!
+
+##### Web UIs
+
+After the job is done you can try to check the following UIs:
 
  * Mesos    - http://192.168.99.11:5050
  * Marathon - http://192.168.99.11:8080
@@ -59,8 +70,9 @@ After the job is done you access the following interfaces:
  * Bamboo   - http://192.168.99.11:8000
  * Kibana   - http://192.168.99.24:5601
 
-Update your `/etc/hosts` file according to what you see in the head of Vagrantfile,
+Update your `/etc/hosts` file according to what you see in the head of the Vagrantfile,
 if you want to use short names like `master1`.
+
 
 #### Service
 

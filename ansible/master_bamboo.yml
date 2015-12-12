@@ -1,0 +1,12 @@
+#
+# Mesos masters
+#
+# Bamboo installation requires a separate step.
+#
+---
+- hosts: masters[0]
+  remote_user: vagrant
+  become: yes
+  become_method: sudo
+  roles:
+    - { role: "bamboo", tags: "bamboo", when: with_bamboo }
