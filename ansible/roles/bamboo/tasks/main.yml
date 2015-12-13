@@ -5,9 +5,7 @@
 #
 ---
 - name: Install HaProxy
-  sudo: yes
   yum: pkg=haproxy state=present update_cache=yes
-  tags: yum
 
 - name: Enable HaProxy
   service: name=haproxy state=restarted enabled=yes
@@ -46,9 +44,7 @@
 # scp ${OPTIONS} /tmp/bamboo-1.0.0_1-1.noarch.rpm v:/tmp
 #
 - name: Install Bamboo
-  sudo: yes
   yum: pkg=/tmp/bamboo-1.0.0_1-1.noarch.rpm state=present
-  tags: yum
 
 - name: Configure Bamboo (copy config)
   template:
@@ -59,7 +55,6 @@
   copy: src=bamboo-server.service
         dest=/usr/lib/systemd/system/
         owner=root group=root mode=0644
-  tags: yum
 
 - name: Reload SystemD
   shell: systemctl daemon-reload

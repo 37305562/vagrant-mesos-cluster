@@ -6,25 +6,16 @@
   copy: src=elk.repo
         dest=/etc/yum.repos.d/
         owner=root group=root mode=0644
-  tags: yum
 
 - name: UnInstall LogStash (if any)
-  sudo: yes
   ignore_errors: yes
   yum: pkg=logstash state=absent
-  tags: yum
 
 - name: Install LogStash packages
-  sudo: yes
   yum: pkg=logstash,java state=present update_cache=yes
-  tags: yum
-
 
 - name: Create LogStash config file
-  sudo: yes
   template: src=logstash.conf.j2 dest={{logstash_config_dir}}/logstash.conf backup=yes mode=0644
-  tags: start
 
 - name: Enable Logstash
   service: name=logstash state=restarted enabled=yes sleep=5
-  tags: start
