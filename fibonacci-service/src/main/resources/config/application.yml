@@ -4,7 +4,7 @@ server:
 dns:
   enabled: false
   host: localhost
-  port: 53
+  port: 8123
 
 service:
-  name: fibonacci
+  name: fibonacci-service

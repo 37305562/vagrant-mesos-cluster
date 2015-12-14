@@ -3,6 +3,7 @@ package name.krestjaninoff.mesos.fibonacci.service;
 import name.krestjaninoff.mesos.fibonacci.service.balancing.LoadBalancer;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -20,21 +21,21 @@ public class FibonacciClient {
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(FibonacciClient.class);
 
     @Value("${service.name}")
-    private String serviceName = "fibonacci";
+    private String serviceName = "fibonacci-service";
 
     @Autowired
     private LoadBalancer loadBalancer;
 
-
     @Autowired
-    private SimpleClientHttpRequestFactory simpleClientHttpRequestFactory;
+    @Qualifier("restClientHttpRequestFactory")
+    private SimpleClientHttpRequestFactory restClientHttpRequestFactory;
 
     private AsyncRestTemplate restTemplate;
 
 
     @PostConstruct
     public void init() {
-        this.restTemplate = new AsyncRestTemplate(simpleClientHttpRequestFactory);
+        this.restTemplate = new AsyncRestTemplate(restClientHttpRequestFactory);
     }
 
 
