@@ -24,6 +24,8 @@ import java.util.List;
 @ConditionalOnExpression("${dns.enabled:true}")
 public class MesosDnsDiscoveryService implements DiscoveryService {
 
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(MesosDnsDiscoveryService.class);
+
     @Value("${dns.host}")
     private String host;
 
@@ -53,6 +55,11 @@ public class MesosDnsDiscoveryService implements DiscoveryService {
         try {
             String srvName = "_" + serviceName + "._tcp.marathon.mesos.";
             String response = restTemplate.getForObject(url + srvName, String.class);
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("DNS request: {}", url + srvName);
+                LOG.debug("DNS Response: {}", response);
+            }
 
             JSONArray jsonServices = new JSONArray(response);
 
