@@ -54,12 +54,11 @@ public class MesosDnsDiscoveryService implements DiscoveryService {
 
         try {
             String srvName = "_" + serviceName + "._tcp.marathon.mesos.";
-            String response = restTemplate.getForObject(url + srvName, String.class);
+            String request = url + srvName;
 
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("DNS request: {}", url + srvName);
-                LOG.debug("DNS Response: {}", response);
-            }
+            LOG.debug("DNS request: {}", request);
+            String response = restTemplate.getForObject(request, String.class);
+            LOG.debug("DNS Response: {}", response);
 
             JSONArray jsonServices = new JSONArray(response);
 

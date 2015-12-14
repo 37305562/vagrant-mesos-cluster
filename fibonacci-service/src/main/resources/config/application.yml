@@ -6,5 +6,5 @@ dns:
   host: localhost
   port: 8123
 
-service:
+srv:
   name: fibonacci-service

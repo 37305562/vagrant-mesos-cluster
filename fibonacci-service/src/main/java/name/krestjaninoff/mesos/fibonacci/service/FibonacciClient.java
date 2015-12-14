@@ -20,7 +20,7 @@ import java.util.concurrent.Future;
 public class FibonacciClient {
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(FibonacciClient.class);
 
-    @Value("${service.name}")
+    @Value("${srv.name}")
     private String serviceName = "fibonacci-service";
 
     @Autowired
