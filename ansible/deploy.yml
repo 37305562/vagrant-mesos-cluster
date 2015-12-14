@@ -14,6 +14,6 @@
     - image_version: latest
     - service_name: fibonacci
     - service_port: 8099
-    - instances: 6
+    - instances: 3
   roles:
     - deployment
