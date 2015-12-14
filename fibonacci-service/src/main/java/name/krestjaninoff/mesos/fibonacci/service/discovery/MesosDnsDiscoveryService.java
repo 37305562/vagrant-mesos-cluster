@@ -63,7 +63,7 @@ public class MesosDnsDiscoveryService implements DiscoveryService {
             for (int i = 0; i < jsonServices.length(); i++) {
 
                 String ip = jsonServices.getJSONObject(i).getString("ip");
-                Integer port = jsonServices.getJSONObject(i).getInt("port");
+                Integer port = Integer.valueOf(jsonServices.getJSONObject(i).getString("port"));
 
                 Pair<String, Integer> instance = new ImmutablePair<>(ip, port);
                 instances.add(instance);
