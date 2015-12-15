@@ -9,4 +9,4 @@
   become: yes
   become_method: sudo
   roles:
-    - { role: "bamboo", tags: "bamboo", when: with_bamboo }
+    - { role: "bamboo", tags: "bamboo" }
