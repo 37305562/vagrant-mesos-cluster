@@ -4,7 +4,7 @@
   },
 
   "Bamboo": {
-    "Endpoint": "http://haproxy-ip-address:8000",
+    "Endpoint": "http://127.0.0.1:8000",
     "Zookeeper": {
       "Host": "{{zk_host1}}:2181,{{zk_host2}}:2181,{{zk_host3}}:2181",
       "Path": "/marathon-haproxy/state",
@@ -13,7 +13,7 @@
   },
 
   "HAProxy": {
-    "TemplatePath": "config/haproxy_template.cfg",
+    "TemplatePath": "/opt/bamboo/config/haproxy_template.cfg",
     "OutputPath": "/etc/haproxy/haproxy.cfg",
     "ReloadCommand": "haproxy -f /etc/haproxy/haproxy.cfg -p /var/run/haproxy.pid -D -sf $(cat /var/run/haproxy.pid)",
     "ReloadValidationCommand": "haproxy -c -f {{'{{'}}.{{'}}'}}"
