@@ -51,6 +51,11 @@
     src: production.json.j2
     dest: /var/bamboo/production.json
 
+- name: Configure Bamboo (HaProxy template)
+  copy: src=haproxy_template.cfg
+        dest=/opt/bamboo/config/
+        mode=0644
+
 - name: Configure SystemD
   copy: src=bamboo-server.service
         dest=/usr/lib/systemd/system/

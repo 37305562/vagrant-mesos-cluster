@@ -151,9 +151,12 @@ mesosphere-zookeeper-3.4.6-0.1.20141204175332.centos7.x86_64
 [vagrant@master1 ~]$ rpm -qa | grep marathon | sort
 marathon-0.13.0-1.0.440.el7.x86_64
 
+[vagrant@node1 ~]$ rpm -qa | grep logstash | sort
+logstash-2.1.1-1.noarch
+
 [vagrant@master1 ~]$ rpm -qa | grep bamboo | sort
 bamboo-1.0.0_1-1.noarch
 
-[vagrant@node1 ~]$ rpm -qa | grep logstash | sort
-logstash-2.1.1-1.noarch
+[vagrant@master1 ~]$ rpm -qa | grep haproxy | sort
+haproxy-1.5.14-3.el7.x86_64
 ```
