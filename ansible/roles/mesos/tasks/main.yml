@@ -10,19 +10,19 @@
 - name: Configure Mesos ZK settings
   shell: echo "zk://{{zk_host1}}:2181,{{zk_host2}}:2181,{{zk_host3}}:2181/mesos" > /etc/mesos/zk
 
-- name: Configure Mesos: Master quorum
+- name: Configure Mesos / Master quorum
   shell: echo "{{mesos_quorum}}" > /etc/mesos-master/quorum
   when: mesos_type == "master"
 
-- name: Configure Mesos: Slave containerizers
+- name: Configure Mesos / Slave containerizers
   shell: echo "docker,mesos" > /etc/mesos-slave/containerizers
   when: mesos_type == "slave"
 
-- name: Configure Mesos: Slave deployment time
+- name: Configure Mesos / Slave deployment time
   shell: echo "10mins" > /etc/mesos-slave/executor_registration_timeout
   when: mesos_type == "slave"
 
-- name: Configure Mesos: Slave resources
+- name: Configure Mesos / Slave resources
   shell: echo "ports(*):[10000-11000]" > /etc/mesos-slave/resources
   when: mesos_type == "slave"
 
