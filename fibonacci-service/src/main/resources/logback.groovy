@@ -7,7 +7,7 @@ import org.slf4j.MDC
 import static ch.qos.logback.classic.Level.*
 
 def appenderList = ["CONSOLE", "logstash"]
-def serviceId = System.getenv("SERVICE_ID") ?: "undefined"
+def serviceId = System.getenv("srv.name") ?: "undefined"
 def logstashHost = System.getenv("LOGSTASH_HOST")
 
 jmxConfigurator()
