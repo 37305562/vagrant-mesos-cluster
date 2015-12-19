@@ -37,6 +37,7 @@ public class FibonacciController {
         } else {
             // Invoke both calculations in parallel to double the computation speed
             // (yes, this solution has huge overhead, but this example is about distributed systems, not effective calculations)
+            // Plus, the executors pool for async calls is limited (see Config), so a deadlock is guaranteed for big numbers :)
             Future<ResponseEntity<Integer>> n1Future = client.invoke(n - 1);
             Future<ResponseEntity<Integer>> n2Future = client.invoke(n - 2);
 
