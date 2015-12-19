@@ -14,6 +14,8 @@ It includes the following technologies:
 Also there is a little SpringBoot based distributed service ("fibonacci-service") which can be Dockerized
 and deployed into the cluster to illustrate its work and produce some logs.
 
+More information about this project in the related [article](http://trustmeiamadeveloper.com/2015/12/17/mesos-as-a-docker-containers-farm/) in my blog.
+
 
 ### Dependencies
 
