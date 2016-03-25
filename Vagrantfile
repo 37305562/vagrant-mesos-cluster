@@ -12,10 +12,11 @@ HOSTS = {
   "nodes" => {
     "node1"   => "192.168.99.21",
     "node2"   => "192.168.99.22",
-    "node3"   => "192.168.99.23"
+    "node3"   => "192.168.99.23",
+    "node4"   => "192.168.99.24"
   },
   "logs" => {
-    "log1"    => "192.168.99.24"
+    "log1"    => "192.168.99.30"
   }
 }
 
@@ -28,14 +29,13 @@ Vagrant.configure(2) do |config|
 
       machine.vm.provider "virtualbox" do |vb|
         vb.memory = "1024"
-        vb.cpus = "2"
+        vb.cpus = "1"
       end
 
       # Update host's /etc/host file to access VM by its names
       # Mesos    - http://192.168.99.11:5050
       # Marathon - http://192.168.99.11:8080
-      # HaProxy  - http://192.168.99.11:5000
-      # Bamboo   - http://192.168.99.11:8000
+      # HaProxy  - http://192.168.99.11:9090/haproxy?stats
       machine.vm.network "private_network", :ip => host[1]
 
       machine.vm.provision "ansible" do |ansible|
@@ -64,7 +64,7 @@ Vagrant.configure(2) do |config|
 
       machine.vm.provider "virtualbox" do |vb|
         vb.memory = "2048"
-        vb.cpus = "2"
+        vb.cpus = "1"
       end
 
       machine.vm.provision "ansible" do |ansible|
@@ -89,7 +89,7 @@ Vagrant.configure(2) do |config|
 
       machine.vm.provider "virtualbox" do |vb|
         vb.memory = "2048"
-        vb.cpus = "2"
+        vb.cpus = "1"
       end
 
       machine.vm.provision "ansible" do |ansible|

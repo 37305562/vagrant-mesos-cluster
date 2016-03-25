@@ -5,14 +5,11 @@ It includes the following technologies:
 
   * Zookeeper
   * Mesos (+ MesosDns)
-  * Marathon
+  * Marathon (+ HaProxy based LoadBalancer)
   * Docker
-  * HaProxy
-  * Bamboo
   * ELK (ElasticSearch + LogStash + Kibana)
 
-Also there is a little SpringBoot based distributed service ("fibonacci-service") which can be Dockerized
-and deployed into the cluster to illustrate its work and produce some logs.
+Also there is a little SpringBoot based distributed service ("fibonacci-service") which can be   Dockerized and deployed into the cluster to illustrate its work and produce some logs.
 
 More information about this project in the related [article](http://trustmeiamadeveloper.com/2015/12/17/mesos-as-a-docker-containers-farm/) in my blog.
 
@@ -24,7 +21,6 @@ Note, you have to install
   * vagrant (>= 1.7.4, tested on Virtualbox=5.0-5.0.10 as a provider)
   * ansible (>= 1.9.4)
   * gradle, java and docker (optional, to build the service)
-  * golang and ruby/fpm (optional, to build Bamboo package)
 
 on your local machine before you can start.
 
@@ -50,17 +46,6 @@ vagrant up
 
 It takes some time to download and install all the stuff... so be patient :)
 
-##### Bamboo instalation
-
-The only thing **you should worry about** here is **Bamboo package**. Unfortunately, you have to assemble it manually.
-See `ansible/roles/bamboo/tasks/main.yml` for the instructions. When the package is assembled and uploaded
-into `master1` machine:
-
-  * open the Vagrantfile
-  * switch `ansible.playbook` in `masters` section to `ansible/master_bamboo.yml`
-  * run `vagrant provision master1`
-
-Now Bamboo and HaProxy are up and running!
 
 ##### Web UIs
 
@@ -68,8 +53,7 @@ After the job is done you can try to check the following UIs:
 
  * Mesos    - http://192.168.99.11:5050
  * Marathon - http://192.168.99.11:8080
- * HaProxy  - http://192.168.99.11:81
- * Bamboo   - http://192.168.99.11:8000
+ * HaProxy  - http://192.168.99.11::9090/haproxy?stats
  * Kibana   - http://192.168.99.24:5601
 
 Update your `/etc/hosts` file according to what you see in the head of the Vagrantfile,
@@ -96,7 +80,6 @@ gradle buildDocker
 To run the image on the cluster you have to perform two steps:
 
   * deploy the image through [Marathon REST API](https://mesosphere.github.io/marathon/docs/rest-api.html)
-  * set up a Bamboo rule to proxy requests to your app through [Bamboo REST API](https://github.com/QubitProducts/bamboo)
 
 For that we have a special ansible playbook (`deploy.yml`). If you are too lazy to run it manually,
 consider `deploy.sh` script in the root folder :)
@@ -155,9 +138,6 @@ marathon-0.13.0-1.0.440.el7.x86_64
 
 [vagrant@node1 ~]$ rpm -qa | grep logstash | sort
 logstash-2.1.1-1.noarch
-
-[vagrant@master1 ~]$ rpm -qa | grep bamboo | sort
-bamboo-1.0.0_1-1.noarch
 
 [vagrant@master1 ~]$ rpm -qa | grep haproxy | sort
 haproxy-1.5.14-3.el7.x86_64

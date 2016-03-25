@@ -1,3 +1,5 @@
+mesos_version: 0.28.0
+
 mesos_type: master
 
 zk_host1: localhost
