@@ -53,7 +53,7 @@ After the job is done you can try to check the following UIs:
 
  * Mesos    - http://192.168.99.11:5050
  * Marathon - http://192.168.99.11:8080
- * HaProxy  - http://192.168.99.11::9090/haproxy?stats
+ * HaProxy  - http://192.168.99.11:9090/haproxy?stats
  * Kibana   - http://192.168.99.24:5601
 
 Update your `/etc/hosts` file according to what you see in the head of the Vagrantfile,
@@ -89,7 +89,7 @@ Remember, you can use Marathon UI (the link is above) to observer the deployment
 Once the app is deployed you can easily invoke it through HaProxy:
 
 ```
-http://192.168.99.11:5000/service/fibonacci/10
+http://192.168.99.11:80/5
 ```
 
 where `10` is number of position in the Fibonacci sequence. Have fun and don't forget to check the logs (the link is above) :)
@@ -122,23 +122,3 @@ end
 
   * VBox interfaces are always in UNKNOWN state (no IPv4 address): https://www.virtualbox.org/ticket/14526
   * Host-only network is unreachable from the host machine: remove all the virtual interfaces (through VBox GUI) and try again (https://www.virtualbox.org/manual/ch06.html#network_hostonly)
-
-#### Packages Version
-
-In case if something goes wrong here is a list of packages versions which were used during my experiments:
-
-```
-[vagrant@master1 ~]$ rpm -qa | grep mesos | sort
-mesos-0.25.0-0.2.70.centos701406.x86_64
-mesosphere-el-repo-7-1.noarch
-mesosphere-zookeeper-3.4.6-0.1.20141204175332.centos7.x86_64
-
-[vagrant@master1 ~]$ rpm -qa | grep marathon | sort
-marathon-0.13.0-1.0.440.el7.x86_64
-
-[vagrant@node1 ~]$ rpm -qa | grep logstash | sort
-logstash-2.1.1-1.noarch
-
-[vagrant@master1 ~]$ rpm -qa | grep haproxy | sort
-haproxy-1.5.14-3.el7.x86_64
-```
