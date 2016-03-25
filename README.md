@@ -92,7 +92,7 @@ Once the app is deployed you can easily invoke it through HaProxy:
 http://192.168.99.11:80/5
 ```
 
-where `10` is number of position in the Fibonacci sequence. Have fun and don't forget to check the logs (the link is above) :)
+where `5` is number of position in the Fibonacci sequence. Have fun and don't forget to check the logs (the link is above) :)
 
 
 ### Troubleshooting
