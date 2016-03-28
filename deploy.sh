@@ -1,4 +1,3 @@
 #!/bin/bash
 
-cd ./ansible
-ansible-playbook deploy.yml
+ansible-playbook -i localhost, ansible/deploy.yml

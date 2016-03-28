@@ -4,7 +4,7 @@
 #
 ---
 - name: Install Mesos
-  yum: pkg=mesos state=latest update_cache=yes
+  yum: pkg=mesos-{{mesos_version}} state=present update_cache=yes
 
 
 - name: Configure Mesos ZK settings
